@@ -68,4 +68,4 @@ const Home = ({ title }: Props) => {
   )
 }
 
-export default Home;
+export default Home
