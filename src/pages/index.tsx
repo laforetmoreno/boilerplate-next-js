@@ -5,6 +5,8 @@ type Props = {
   title: string
 }
 
+const moreno = ''
+
 const Home = ({ title }: Props) => {
   return (
     <div className={styles.container}>
