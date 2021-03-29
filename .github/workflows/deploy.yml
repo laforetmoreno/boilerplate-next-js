@@ -11,13 +11,11 @@ jobs:
           node-version: "14.x"
       - name: Install dependencies
         run: yarn
-      - uses: amondnet/vercel-action@v20
+      - uses: actions/vercel-deployment@0.5.1
         with:
           vercelToken: ${{ secrets.VERCEL_TOKEN }}
-          vercelOrgId: ${{ secrets.ORG_ID }}
-          vercelProjectId: ${{ secrets.PROJECT_ID }}
+          vercelOrgId: ${{ secrets.VERCEL_ORG_ID }}
+          vercelProjectId: ${{ secrets.VERCEL_PROJECT_ID }}
           githubToken: ${{ secrets.PAT }}
           sourceDirectory: "src"
-        env:
-          YOUR_ENV_1: ${{ secrets.YOUR_ENV_1 }}
-          YOUR_ENV_2: ${{ secrets.YOUR_ENV_2 }}
+          assignDomain: "boilerplate-next-js-morenolaforet.vercel.app"
