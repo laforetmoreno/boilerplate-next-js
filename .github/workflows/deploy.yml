@@ -1,16 +1,24 @@
-name: deploy website
-on: [pull_request]
+
+name: deploy website preview
+on:
+  pull_request:
+    branches:
+      - master
+  pull_request_target:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ngduc/vercel-deploy-action@master
+      - uses: ./
+        id: vercel-action
         with:
-          vercel-cli: vercel # optional ("vercel" or "now")
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}  #Required
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required 
-          working-directory: ./sub-directory
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-comment: false
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: preview-url
+        run: |
+          echo ${{ steps.vercel-action.outputs.preview-url }}
